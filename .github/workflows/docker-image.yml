@@ -1,0 +1,50 @@
+
+name: ECR Build and Push
+
+on:
+  push:
+    branches: ["main"]
+
+defaults:
+  run:
+    working-directory: ./app
+
+jobs:
+  build:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+
+    env:
+      ECR_URI: ${{ secrets.ECR_URI }}
+      IMAGE_TAG: ${{ github.sha }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set short SHA
+        run: echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> $GITHUB_ENV
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and tag image to Amazon ECR
+        run: docker build -t $ECR_URI:$IMAGE_TAG .
+
+      - name: Scan image
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          image-ref: "${{ env.ECR_URI }}:${{ env.IMAGE_TAG }}"
+          format: table
+          severity: "CRITICAL,HIGH"
+          exit-code: "0"
+
+      - name: Push image to Amazon ECR
+        run: docker push $ECR_URI:$IMAGE_TAG

@@ -1,0 +1,28 @@
+
+# Terraform
+/terraform/.terraform/
+/terraform/.terraform.lock.hcl
+/terraform/*.tfstate
+/terraform/*.tfstate.*
+/terraform/terraform.tfvars
+
+# Ignore Terraform state files anywhere
+*.tfstate
+*.tfstate.*
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Environment variables and secrets
+.env
+.env.*
+
+# IDE
+.vscode/
