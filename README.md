@@ -82,21 +82,35 @@ flowchart LR
 
 ## CI/CD Pipeline Success
 
-The CI/CD workflow completed successfully, confirming that the project builds and deploys correctly through automation.
+The GitHub Actions workflow completed successfully, and every stage passed without errors. This confirms the application build and Docker publishing workflow are working correctly.
 
-![Successful GitHub Actions CI/CD pipeline](docs/images/cicd-pipeline-success.svg)
+### Build workflow success
 
-### What went well
+![GitHub Actions build workflow success](docs/images/github-actions-build-success.png)
 
-- The workflow triggered successfully after code changes.
-- The repository was checked out without errors.
-- The build job completed successfully.
-- The Docker image was built successfully.
-- The image was pushed to the registry without issues.
-- All required pipeline stages passed cleanly.
-- The deployment process is therefore reliable and repeatable.
+The build job completed successfully:
+- repository checkout passed
+- workflow execution succeeded
+- environment setup completed
+- application build finished without failure
 
-This demonstrates that the automation is working as expected and the project is ready for deployment in the AWS ECS environment.
+### Docker publish workflow success
+
+![GitHub Actions Docker publish success](docs/images/github-actions-docker-success.png)
+
+The Docker workflow also passed successfully:
+- Docker login to Docker Hub succeeded
+- image build completed successfully
+- image push completed successfully
+- final pipeline steps finished cleanly
+
+### Result
+
+All pipeline checks passed, the container image was built and published successfully, and the deployment process is working as expected.
+
+## Threat Composer Dashboard
+
+![Threat Composer dashboard](docs/images/threat-composer-dashboard.png)
 
 ## Prerequisites
 
