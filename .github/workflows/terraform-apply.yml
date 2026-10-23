@@ -18,6 +18,8 @@ jobs:
     name: Terraform Apply
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    env:
+      TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
