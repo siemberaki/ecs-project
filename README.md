@@ -139,3 +139,62 @@ This project is designed to showcase a practical AWS deployment pattern for a co
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+
+Introduction
+
+
+This project demonstrates the deploying a containerised web application to AWS. I've used Docker for efficient application packaging, GitHub Actions for automated image building and pushing to ECR and Terraform for defining and managing all necessary AWS infrastructure including - ECS, Fargate, ALB and Route53. The goal is to create a highly available web service accessible via my custom domain.
+
+![alt text](image-2.png)
+
+Directory Structure
+/
+├── .github/
+│   └── workflows/
+│       ├── docker-build.yml
+│       ├── terraform-plan.yml
+│       ├── terraform-apply.yml
+│       └── terraform-destroy.yml
+├── app/
+├── images/
+├── terraform/
+│   ├── modules/
+│   │   ├── alb/
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── iam/
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── ecs/
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── dns/
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── vpc/
+│   │   │  ├── main.tf
+│   │   │  ├── outputs.tf
+│   │   │  └── variables.tf
+│   │   └── acm/
+│   │       ├── main.tf
+│   │       ├── outputs.tf
+│   │       └── variables.tf
+│   ├── main.tf
+│   ├── outputs.tf
+│   ├── providers.tf
+│   ├── terraform.tfvars
+│   └── variables.tf
+├── .gitignore
+└── README.md
+
+Deployment Workflow
+Docker Build
+New changes are pushed to Github
+Workflow builds the image
+Pushes the image to Amazon ECR
+Latest image deployed by ECS
