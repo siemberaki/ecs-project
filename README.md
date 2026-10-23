@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This project demonstrates how to deploy a containerised web application to AWS using a modern, production-style infrastructure setup. I used Docker to package the app, GitHub Actions to automate the build and deployment pipeline, and Terraform to provision the AWS infrastructure required to run the application reliably and at scale.
+This project demonstrates how to deploy a containerised web application to AWS using a modern, production-style infrastructure setup. I used Docker to package the app, GitHub Actions to automate the build and push workflow, and Terraform to provision the required AWS infrastructure.
 
 The stack includes:
 
@@ -20,7 +20,7 @@ The goal is to deliver a highly available, secure, and scalable web application 
 
 ## Architecture Overview
 
-The application is deployed in a VPC with public subnets, behind an ALB and running on ECS Fargate tasks. GitHub Actions builds the Docker image from the application source, pushes it to Amazon ECR, and Terraform provisions the ECS service, networking, load balancer, and DNS configuration.
+The application is deployed in a VPC with public subnets, behind an ALB and running on ECS Fargate tasks. GitHub Actions builds the Docker image from the application source, pushes it to Amazon ECR, and Terraform provisions the networking, IAM, ALB, ECS, Route 53, and ACM resources.
 
 ```mermaid
 flowchart LR
@@ -54,7 +54,6 @@ flowchart LR
 - Terraform
 - GitHub Actions
 - Docker
-- Python/Flask or web application stack used by the project
 
 ## Repository Structure
 
@@ -63,7 +62,7 @@ flowchart LR
 ├── app/                 # Application source code and Docker assets
 ├── terraform/           # Terraform modules and configuration
 ├── .github/             # GitHub Actions workflows
-├── docs/                # Documentation and screenshots
+├── images/              # Project screenshots and hands-on deployment evidence
 ├── README.md            # Project documentation
 ├── .gitignore
 ├── LICENSE
@@ -82,35 +81,27 @@ flowchart LR
 
 ## CI/CD Pipeline Success
 
-The GitHub Actions workflow completed successfully, and every stage passed without errors. This confirms the application build and Docker publishing workflow are working correctly.
+### Docker build workflow
 
-### Build workflow success
+![My Docker build workflow](images/cicd%20docker.png)
 
-![GitHub Actions build workflow success](docs/images/github-actions-build-success.png)
+The Docker workflow completed successfully:
+- Docker image build succeeded
+- image publication succeeded
+- deployment pipeline was validated end-to-end
 
-The build job completed successfully:
-- repository checkout passed
-- workflow execution succeeded
-- environment setup completed
-- application build finished without failure
+### Terraform deployment workflow
 
-### Docker publish workflow success
+![My Terraform deployment workflow](images/cicd%20terraform.png)
 
-![GitHub Actions Docker publish success](docs/images/github-actions-docker-success.png)
+The infrastructure workflow completed successfully:
+- Terraform plan was created
+- AWS resources were provisioned through IaC
+- deployment configuration was applied successfully
 
-The Docker workflow also passed successfully:
-- Docker login to Docker Hub succeeded
-- image build completed successfully
-- image push completed successfully
-- final pipeline steps finished cleanly
+### Deployed application
 
-### Result
-
-All pipeline checks passed, the container image was built and published successfully, and the deployment process is working as expected.
-
-## Threat Composer Dashboard
-
-![Threat Composer dashboard](docs/images/threat-composer-dashboard.png)
+![My deployed Threat Composer app running on AWS ECS](images/my_web.png)
 
 ## Prerequisites
 
@@ -134,67 +125,8 @@ terraform apply
 
 ## Notes
 
-This project is designed to showcase a practical AWS deployment pattern for a container-based application. It combines infrastructure automation, DevOps workflows, and secure web hosting to provide a modern cloud deployment architecture.
+This project is designed to showcase a practical AWS deployment pattern for a container-based application. It combines infrastructure automation, DevOps workflows, and secure web hosting to provide a hands-on example of modern cloud deployment.
 
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
-
-
-Introduction
-
-
-This project demonstrates the deploying a containerised web application to AWS. I've used Docker for efficient application packaging, GitHub Actions for automated image building and pushing to ECR and Terraform for defining and managing all necessary AWS infrastructure including - ECS, Fargate, ALB and Route53. The goal is to create a highly available web service accessible via my custom domain.
-
-![alt text](image-2.png)
-
-Directory Structure
-/
-├── .github/
-│   └── workflows/
-│       ├── docker-build.yml
-│       ├── terraform-plan.yml
-│       ├── terraform-apply.yml
-│       └── terraform-destroy.yml
-├── app/
-├── images/
-├── terraform/
-│   ├── modules/
-│   │   ├── alb/
-│   │   │   ├── main.tf
-│   │   │   ├── outputs.tf
-│   │   │   └── variables.tf
-│   │   ├── iam/
-│   │   │   ├── main.tf
-│   │   │   ├── outputs.tf
-│   │   │   └── variables.tf
-│   │   ├── ecs/
-│   │   │   ├── main.tf
-│   │   │   ├── outputs.tf
-│   │   │   └── variables.tf
-│   │   ├── dns/
-│   │   │   ├── main.tf
-│   │   │   ├── outputs.tf
-│   │   │   └── variables.tf
-│   │   ├── vpc/
-│   │   │  ├── main.tf
-│   │   │  ├── outputs.tf
-│   │   │  └── variables.tf
-│   │   └── acm/
-│   │       ├── main.tf
-│   │       ├── outputs.tf
-│   │       └── variables.tf
-│   ├── main.tf
-│   ├── outputs.tf
-│   ├── providers.tf
-│   ├── terraform.tfvars
-│   └── variables.tf
-├── .gitignore
-└── README.md
-
-Deployment Workflow
-Docker Build
-New changes are pushed to Github
-Workflow builds the image
-Pushes the image to Amazon ECR
-Latest image deployed by ECS
