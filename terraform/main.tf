@@ -34,8 +34,8 @@ module "acm" {
   domain_name_acm   = var.domain_name_acm
   validation_method = var.validation_method
   acm_ttl           = var.acm_ttl
+  cloudflare_zone_id = var.cloudflare_zone_id
 }
-
 # - ALB Module
 
 module "alb" {
@@ -53,6 +53,7 @@ module "alb" {
   vpc_id              = module.vpc.vpc_id
   subnet_ids          = module.vpc.public_subnet
   acm_certificate_arn = module.acm.acm_cert_arn
+  target_group_port = var.target_group_port
 }
 
 # - ECS Module 
@@ -79,11 +80,9 @@ module "ecs" {
 
 #  - DNS Module 
 
+
 module "dns" {
-  source                 = "./modules/dns"
-  domain_name            = var.domain_name
-  route53_record_ns_name = var.route53_record_ns_name
-  route53_record_type    = var.route53_record_type
-  alb_dns_name           = module.alb.alb_dns_name
-  alb_zone_id            = module.alb.alb_zone_id
-} 
+  source           = "./modules/dns"
+  cloudflare_zone_id = var.cloudflare_zone_id
+  alb_dns_name     = module.alb.alb_dns_name
+}

@@ -1,8 +1,12 @@
-
 terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
       version = "~> 4.0"
     }
   }
@@ -10,15 +14,18 @@ terraform {
   backend "s3" {
     bucket       = "project-ecs-tf--state"
     key          = "terraform.tfstate"
-    region       = "eu-west-2"
+    region       = "us-east-1"
     encrypt      = true
     use_lockfile = true
-
   }
 
   required_version = ">= 1.0"
 }
 
 provider "aws" {
-  region = "eu-west-2"
+  region = "us-east-2"
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
 }

@@ -64,3 +64,7 @@ variable "acm_certificate_arn" {
   description = "ARN of the SSL certificate for the ALB."
   type        = string
 }
+variable "target_group_port" {
+  description = "Port used by the ALB to reach the ECS container."
+  type        = number
+}

@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 4.0"
+    }
+  }
+}
 
 variable "domain_name_acm" {
   description = "Domain name for the ACM certificate."
@@ -16,5 +24,9 @@ variable "acm_ttl" {
 
 variable "domain_name" {
   description = "Domain name for Route 53."
+  type        = string
+}
+variable "cloudflare_zone_id" {
+  description = "Cloudflare Zone ID for siema.fyi"
   type        = string
 }

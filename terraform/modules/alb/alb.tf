@@ -40,11 +40,15 @@ resource "aws_security_group" "alb_sg" {
 }
 
 resource "aws_lb_target_group" "alb_tg" {
-  name        = "${var.vpc_name}-tg"
-  port        = var.http_port
+  name_prefix = "tg-"
+  port        = var.target_group_port
   protocol    = var.http_protocol
   vpc_id      = var.vpc_id
   target_type = var.target_type
+
+  lifecycle {
+    create_before_destroy = true
+  }
 
   health_check {
     path                = "/"
@@ -56,7 +60,8 @@ resource "aws_lb_target_group" "alb_tg" {
   }
 
   tags = {
-  Name = "${var.vpc_name}-tg" }
+    Name = "${var.vpc_name}-tg"
+  }
 }
 
 resource "aws_lb_listener" "ecs_listener" {
@@ -81,7 +86,7 @@ resource "aws_lb_listener" "http_listen" {
   default_action {
     type             = "redirect"
     target_group_arn = aws_lb_target_group.alb_tg.arn
-    
+
     redirect {
       port        = 443
       status_code = "HTTP_301"

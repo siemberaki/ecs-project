@@ -76,6 +76,6 @@ resource "aws_ecs_service" "ecs_service" {
     container_name   = "${var.ecs_cluster_name}-container"
     container_port   = var.http
   }
-  
+
   depends_on = [var.alb_listener_arn]
 }

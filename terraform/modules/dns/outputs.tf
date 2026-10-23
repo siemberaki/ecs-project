@@ -1,4 +1,5 @@
 
-output "zone_id" {
-  value = data.aws_route53_zone.main.zone_id
+output "cloudflare_record_name" {
+  description = "Cloudflare DNS record hostname"
+  value       = cloudflare_record.lb.hostname
 }

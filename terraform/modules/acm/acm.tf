@@ -1,4 +1,3 @@
-
 resource "aws_acm_certificate" "ysolom" {
   domain_name       = var.domain_name_acm
   validation_method = var.validation_method
@@ -8,33 +7,32 @@ resource "aws_acm_certificate" "ysolom" {
   }
 }
 
-data "aws_route53_zone" "main" {
-  name         = var.domain_name
-  private_zone = false
-}
-
-resource "aws_route53_record" "cert_valid" {
-  zone_id = data.aws_route53_zone.main.zone_id
-
+resource "cloudflare_record" "cert_valid" {
   for_each = {
-    for dvo in aws_acm_certificate.ysolom.domain_validation_options : dvo.domain_name => {
+    for dvo in aws_acm_certificate.ysolom.domain_validation_options :
+    dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
     }
   }
 
-  allow_overwrite = true
-  name            = each.value.name
-  records         = [each.value.record]
-  ttl             = var.acm_ttl
-  type            = each.value.type
+  zone_id = var.cloudflare_zone_id
+  name    = each.value.name
+  content = each.value.record
+  type    = each.value.type
+  ttl     = var.acm_ttl
+  proxied = false
 }
 
 resource "aws_acm_certificate_validation" "ysolom" {
-  certificate_arn         = aws_acm_certificate.ysolom.arn
-  validation_record_fqdns = [for record in aws_route53_record.cert_valid : record.fqdn]
+  certificate_arn = aws_acm_certificate.ysolom.arn
 
-  timeouts { create = "5m" }
+  validation_record_fqdns = [
+    for record in cloudflare_record.cert_valid : record.hostname
+  ]
 
+  timeouts {
+    create = "45m"
+  }
 }
