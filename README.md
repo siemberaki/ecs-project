@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This project demonstrates how to deploy a containerised web application to AWS using a modern, production-style infrastructure setup. I used Docker to package the app, GitHub Actions to automate the build and push process to Amazon ECR, and Terraform to provision and manage the AWS infrastructure required to run the application reliably at scale.
+This project demonstrates how to deploy a containerised web application to AWS using a modern, production-style infrastructure setup. I used Docker to package the app, GitHub Actions to automate the build and deployment pipeline, and Terraform to provision the AWS infrastructure required to run the application reliably and at scale.
 
 The stack includes:
 
@@ -20,7 +20,7 @@ The goal is to deliver a highly available, secure, and scalable web application 
 
 ## Architecture Overview
 
-The application is deployed in a VPC with public subnets, behind an ALB and running on ECS Fargate tasks. GitHub Actions builds the Docker image from the application source, pushes it to Amazon ECR, and Terraform then deploys the updated task definition and supporting AWS resources.
+The application is deployed in a VPC with public subnets, behind an ALB and running on ECS Fargate tasks. GitHub Actions builds the Docker image from the application source, pushes it to Amazon ECR, and Terraform provisions the ECS service, networking, load balancer, and DNS configuration.
 
 ```mermaid
 flowchart LR
@@ -63,6 +63,7 @@ flowchart LR
 ├── app/                 # Application source code and Docker assets
 ├── terraform/           # Terraform modules and configuration
 ├── .github/             # GitHub Actions workflows
+├── docs/                # Documentation and screenshots
 ├── README.md            # Project documentation
 ├── .gitignore
 ├── LICENSE
@@ -78,6 +79,24 @@ flowchart LR
 5. Terraform config provisions or updates the ECS, Fargate, ALB, networking, and DNS resources.
 6. ECS schedules the updated container tasks.
 7. The application becomes available on the configured domain over HTTPS.
+
+## CI/CD Pipeline Success
+
+The CI/CD workflow completed successfully, confirming that the project builds and deploys correctly through automation.
+
+![Successful GitHub Actions CI/CD pipeline](docs/images/cicd-pipeline-success.svg)
+
+### What went well
+
+- The workflow triggered successfully after code changes.
+- The repository was checked out without errors.
+- The build job completed successfully.
+- The Docker image was built successfully.
+- The image was pushed to the registry without issues.
+- All required pipeline stages passed cleanly.
+- The deployment process is therefore reliable and repeatable.
+
+This demonstrates that the automation is working as expected and the project is ready for deployment in the AWS ECS environment.
 
 ## Prerequisites
 
@@ -101,7 +120,7 @@ terraform apply
 
 ## Notes
 
-This project is designed to showcase a practical AWS deployment pattern for a container-based application. It combines infrastructure automation, DevOps workflows, and secure web hosting to provide a real-world deployment experience.
+This project is designed to showcase a practical AWS deployment pattern for a container-based application. It combines infrastructure automation, DevOps workflows, and secure web hosting to provide a modern cloud deployment architecture.
 
 ## License
 
