@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">GitHub Actions CI/CD pipeline success</title>
+  <desc id="desc">Dark-themed GitHub Actions workflow summary showing successful build and docker jobs.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <style>
+      .bg { fill: url(#bg); }
+      .panel { fill: #0d1117; stroke: #30363d; }
+      .nav { fill: #0d1117; stroke: #30363d; }
+      .chip { fill: #161b22; stroke: #30363d; }
+      .success { fill: #2ea043; }
+      .text { fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+      .muted { fill: #8b949e; }
+      .muted2 { fill: #c9d1d9; }
+      .job { fill: #161b22; stroke: #30363d; }
+      .row { fill: #0d1117; stroke: #30363d; }
+      .greenline { stroke: #2ea043; stroke-width: 3; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="900"/>
+
+  <!-- Top browser chrome -->
+  <rect x="0" y="0" width="1600" height="54" fill="#0d1117" stroke="#30363d"/>
+  <circle cx="22" cy="27" r="7" fill="#f85149"/>
+  <circle cx="47" cy="27" r="7" fill="#fbbf24"/>
+  <circle cx="72" cy="27" r="7" fill="#2ea043"/>
+  <rect x="118" y="16" width="280" height="24" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="138" y="33" class="muted" font-size="12">github.com/siemberaki/ecs-project/actions</text>
+
+  <!-- Header / nav -->
+  <rect x="0" y="54" width="1600" height="84" class="nav"/>
+  <rect x="22" y="72" width="130" height="48" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="46" y="101" class="text" font-size="26" font-weight="600">siemberaki</text>
+  <text x="170" y="101" class="muted2" font-size="18">/ ecs-project</text>
+
+  <rect x="1020" y="70" width="190" height="38" rx="12" fill="#1f6feb"/>
+  <text x="1068" y="95" class="text" font-size="15" font-weight="600">Run all jobs</text>
+
+  <!-- Workflow panel -->
+  <rect x="60" y="170" width="520" height="640" rx="18" class="panel"/>
+  <rect x="100" y="210" width="442" height="120" rx="12" fill="#161b22" stroke="#30363d"/>
+  <circle cx="140" cy="252" r="18" fill="#2ea043"/>
+  <path d="M132 252l7 7 15-18" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="176" y="246" class="text" font-size="44" font-weight="700">cicd pipeline</text>
+  <text x="176" y="286" class="muted" font-size="22">#6</text>
+
+  <rect x="100" y="356" width="442" height="82" rx="12" class="job"/>
+  <text x="140" y="392" class="text" font-size="26" font-weight="600">build</text>
+  <text x="332" y="392" class="success" font-size="16" font-weight="600">succeeded</text>
+  <text x="335" y="420" class="muted" font-size="16">2 days ago in 4s</text>
+
+  <rect x="100" y="454" width="442" height="82" rx="12" class="job"/>
+  <text x="140" y="490" class="text" font-size="26" font-weight="600">docker</text>
+  <text x="332" y="490" class="success" font-size="16" font-weight="600">succeeded</text>
+  <text x="335" y="518" class="muted" font-size="16">in 18s</text>
+
+  <!-- Main job detail panel -->
+  <rect x="620" y="170" width="900" height="640" rx="18" class="panel"/>
+  <rect x="650" y="202" width="840" height="92" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="690" y="248" class="text" font-size="28" font-weight="700">build</text>
+  <text x="868" y="248" class="success" font-size="18" font-weight="600">succeeded</text>
+  <text x="873" y="272" class="muted" font-size="16">2 days ago in 4s</text>
+
+  <rect x="650" y="320" width="840" height="52" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="688" y="352" class="text" font-size="18">Set up job</text>
+  <text x="1430" y="352" class="muted" font-size="16">0s</text>
+
+  <rect x="650" y="382" width="840" height="52" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="688" y="414" class="text" font-size="18">Checkout code</text>
+  <text x="1430" y="414" class="muted" font-size="16">1s</text>
+
+  <rect x="650" y="444" width="840" height="52" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="688" y="476" class="text" font-size="18">Test workflow</text>
+  <text x="1430" y="476" class="muted" font-size="16">0s</text>
+
+  <rect x="650" y="506" width="840" height="52" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="688" y="538" class="text" font-size="18">Post Checkout code</text>
+  <text x="1430" y="538" class="muted" font-size="16">0s</text>
+
+  <rect x="650" y="568" width="840" height="52" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="688" y="600" class="text" font-size="18">Complete job</text>
+  <text x="1430" y="600" class="muted" font-size="16">0s</text>
+
+  <!-- Success badge -->
+  <circle cx="1285" cy="170" r="14" fill="#2ea043"/>
+  <path d="M1278 170l5 5 12-14" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
